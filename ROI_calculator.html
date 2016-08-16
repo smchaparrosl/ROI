@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+	<div id='step_0'>
+		<h1> Tell us about yourself: </h1>
+		Your name:
+		<input type='text' id='0_name' format='name'/><br>
+		Your email (no yahoo and hotmail addresses):
+		<input type='text' id='0_email' format='email'/><br>
+		Your phone number:
+		<input type='text' id='0_phone' format='phone'/><br>
+
+		<h1> What would like to achieve? </h1>
+		<p>Check all that apply:</p>
+		Improve IT Operations
+		<input type='checkbox' id='0_improveIT' value='true'/><br>
+		Automate IT Tasks
+		<input type='checkbox' id='0_automateIT' value='true'/><br>
+		Tools Consolidation
+		<input type='checkbox' id='0_toolsConsolidation' value='true'/><br>
+		Hybrid IT Opportunity
+		<input type='checkbox' id='0_hybridIT' value='true'/><br>
+		<button class='next'>NEXT</button>
+		<button class='0_update'>NEXT</button>
+	</div>
+
+	<div id='step_1'>
+		<h1>STEP 1</h1>
+		<table>
+			<tr>Tell us about your business:</tr>
+			<tr>
+				<td>Company</td>
+				<td><input type='text' id='1_corporationName' format='text'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Employee Count</td>
+				<td>
+					<select id='1_companySize'>
+						<option selected="selected">1 - 100</option>
+						<option>100 - 500</option>
+						<option>500+</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Industry</td>
+				<td>
+					<select id='1_industry'>
+						<option selected="selected">Technology</option>
+						<option>Non Profit</option>
+						<option>Finance</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Annual Revenue</td>
+				<td>
+					<select id='1_annualRevenue'>
+						<option selected="selected">Default choice</option>
+						<option>Choice 1</option>
+						<option>Choice 2</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_2'>
+		<h1>STEP 2</h1>
+		<table>
+			<tr>Tell us about your IT organization:</tr>
+			<tr>
+				<td>Number of Data Centers</td>
+				<td><input type='text' id='2_dataCenters' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Total number of managed devices on the network</td>
+				<td><input type='text' id='2_networkDevices' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Projected Annual Growth Rate</td>
+				<td><input type='text' id='2_annualGrowth' onkeypress='return isNumber(event)' format='percentage'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Number of Help Desk Technicians (Tier 1)</td>
+				<td><input type='text' id='2_tier1Techs' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Salary of Help Desk Tier 1 Technician (Fully Burdened)</td>
+				<td><input type='text' id='2_tier1Salary' onkeypress='return isNumber(event)' format='dollars' placeholder='$74,250'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Number of Tier 2 Technicians</td>
+				<td><input type='text' id='2_tier2Techs' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='0'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Salary of Tier 2 Technician (Fully Burdened)</td>
+				<td><input type='text' id='2_tier2Salary' onkeypress='return isNumber(event)' format='dollars' placeholder='$98,550'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Number of Tier 3 Technicians</td>
+				<td><input type='text' id='2_tier3Techs' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='0'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Salary of Tier 3 Technician (Fully Burdened)</td>
+				<td><input type='text' id='2_tier3Salary' onkeypress='return isNumber(event)' format='dollars' placeholder='$121,500'/>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_3'>
+		<h1>STEP 3</h1>
+		<h2>Current State</h2>
+		<table>
+			<tr>IT Operations</tr>
+			<tr>
+				<td># Outages/Degradations/Service Disruptions per Quarter</td>
+				<td><input type='text' id='3_1_outages' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(minutes) Average MTTR for Downtime</td>
+				<td><input type='text' id='3_1_mttrDowntime' format='decimal'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Cost per minute for downtime</td>
+				<td><input type='text' id='3_1_costPerMinute' onkeypress='return isNumber(event)' format='dollars' placeholder='$5,000'/>
+				</td>
+			</tr>
+			<tr>
+				<td># of Trouble Tickets per Quarter </td>
+				<td><input type='text' id='3_1_troubleTickets' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 1 Tech</td>
+				<td><input type='text' id='3_1_mttrTier1Tickets' format='decimal'/>
+				</td>
+			</tr>
+			<tr>
+				<td>% of Trouble Tickets Escalated to Tier 2 Technician</td>
+				<td><input type='text' id='3_1_percentTier2Tickets' onkeypress='return isNumber(event)' format='percentage' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 2 Tech</td>
+				<td><input type='text' id='3_1_mttrTier2Tickets' format='decimal' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>% of Trouble Tickets Escalated to Tier 3 Technician</td>
+				<td><input type='text' id='3_1_percentTier3Tickets' onkeypress='return isNumber(event)' format='percentage' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 3 Tech</td>
+				<td><input type='text' id='3_1_mttrTier3Tickets' format='decimal' optional='true'/>
+				</td>
+			</tr>
+		</table>
+		<h2>Projected State</h2>
+		<table>
+			<tr>Improve IT Operations</tr>
+			<tr>
+				<td># Outages/Degradations/Service Disruptions per Quarter</td>
+				<td><input type='text' id='3_2_outages' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(minutes) Average MTTR for Downtime</td>
+				<td><input type='text' id='3_2_mttrDowntime' format='decimal'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Cost per minute for downtime</td>
+				<td><input type='text' id='3_2_costPerMinute' onkeypress='return isNumber(event)'onkeypress='return isNumber(event)' format='dollars' placeholder='$5,000'/>
+				</td>
+			</tr>
+			<tr>
+				<td># of Trouble Tickets per Quarter </td>
+				<td><input type='text' id='3_2_troubleTickets' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 1 Tech</td>
+				<td><input type='text' id='3_2_mttrTier1Tickets' format='decimal'/>
+				</td>
+			</tr>
+			<tr>
+				<td>% of Trouble Tickets Escalated to Tier 2 Technician</td>
+				<td><input type='text' id='3_2_percentTier2Tickets' onkeypress='return isNumber(event)' format='percentage' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 2 Tech</td>
+				<td><input type='text' id='3_2_mttrTier2Tickets' format='decimal' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>% of Trouble Tickets Escalated to Tier 3 Technician</td>
+				<td><input type='text' id='3_2_percentTier3Tickets' onkeypress='return isNumber(event)' format='percentage' optional='true'/>
+				</td>
+			</tr>
+			<tr>
+				<td>(hours) Average MTTR for Trouble Tickets for Tier 3 Tech</td>
+				<td><input type='text' id='3_2_mttrTier3Tickets' format='decimal' optional='true'/>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_4'>
+		<h1>STEP 4</h1>
+		<table>
+			<tr>Manual IT Operations</tr>
+			<tr>
+				<th>Manual Tasks</th>
+				<th>Avg # Times Action Performed Each Day</th>
+				<th>Avg Time for Manual Operations (min.)</th>
+			</tr>
+			<tr>
+				<td>Configuration Discoveries</td>
+				<td><input type='text' id='4_1_numDiscoveries' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeDiscoveries' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='30'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Template Creation</td>
+				<td><input type='text' id='4_1_numTemplates' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeTemplates' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='20'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Ping/TraceRoute</td>
+				<td><input type='text' id='4_1_numPings' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timePings' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='2'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Trouble Ticket Creation/Modification</td>
+				<td><input type='text' id='4_1_numTickets' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeTickets' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='5'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Email Escalations</td>
+				<td><input type='text' id='4_1_numEmails' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeEmails' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='4'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Reboots</td>
+				<td><input type='text' id='4_1_numReboots' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeReboots' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='3'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Reports</td>
+				<td><input type='text' id='4_1_numReports' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td><input type='text' id='4_1_timeReports' onkeypress='return isNumber(event)' format='wholeNumber' placeholder='2'/>
+				</td>
+			</tr>
+			<tr>
+				<th>USER DEFINED AUTOMATIONS - MANUAL STATE/PROCESS</th>
+				<th>Avg # Times Action Performed Each Day</th>
+				<th>Avg Time for Manual Operations (min.)</th>
+			</tr>
+			<tr>
+				<td>
+					<input type='text' id='4_1_titleUMT1' format='text' placeholder='Manual Task #1 Title'>
+				</td>
+				<td>
+					<input type='text' id='4_1_numUMT1' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td>
+					<input type='text' id='4_1_timeUMT1' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type='text' id='4_1_titleUMT2' format='text' placeholder='Manual Task #2 Title'>
+				</td>
+				<td>
+					<input type='text' id='4_1_numUMT2' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td>
+					<input type='text' id='4_1_timeUMT2' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type='text' id='4_1_titleUMT3' format='text' placeholder='Manual Task #3 Title'>
+				</td>
+				<td>
+					<input type='text' id='4_1_numUMT3' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+				<td>
+					<input type='text' id='4_1_timeUMT3' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_5'>
+		<h1>STEP 5 - Tools Consolidation</h1>
+		<table>
+			<tr>
+				<td># of Support Tools</td>
+				<td><input type='text' id='5_1_supportTools' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td># of Servers deployed for tools</td>
+				<td><input type='text' id='5_1_deployedServers' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Annual Total Maintenance Cost for Support Tools</td>
+				<td><input type='text' id='5_1_toolMaintenance' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Annual Total cost for SW licenses (Oracle, MS)</td>
+				<td><input type='text' id='5_1_licensesCost' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>List the SW Licenses that will be retired with the deployment of SiLo below:</td>
+			</tr>
+			<tr>
+				<td id='swLicenses'>
+					<input type='text' id='5_1_swLicenses_1' optional='true'/><br>
+					<input type='text' id='5_1_swLicenses_2' optional='true'/><br>
+					<input type='text' id='5_1_swLicenses_3' optional='true'/><br>
+					<button id='addLicense'>add license</button>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Annual Total SW Subscriptions for Tools</td>
+				<td><input type='text' id='5_1_swSubscriptions' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Annual Total HW Maintenance Support Cost</td>
+				<td><input type='text' id='5_1_hwMaintenance' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Other Annual Support Cost  for Tools</td>
+				<td><input type='text' id='5_1_otherToolCosts' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_6'>
+		<h1>STEP 6</h1>
+		<h2>Current State</h2>
+		<table>
+			<tr>Hybrid Cloud Opportunity Cost</tr>
+			<tr>
+				<td>Total # of Servers (Physical and Virtual)</td>
+				<td><input type='text' id='6_1_totalServers' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Of the Servers, how many are Virtaul Servers?</td>
+				<td><input type='text' id='6_1_virtualServers' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Of the Servers, how many are Physical Servers?</td>
+				<td><input type='text' id='6_1_physicalServers' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Other required annual expenses</td>
+				<td><input type='text' id='6_1_otherExpenses' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>Annual Maintenance Cost for Servers</tr>
+			<tr>
+				<td>$ Annual Cost per Virtual Server SW Maintenance</td>
+				<td><input type='text' id='6_1_costVirtualServer' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>$ Annual Cost per Physical Server SW, HW, Maintenance</td>
+				<td><input type='text' id='6_1_costPhysicalServer' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>Administration and Maintenance</tr>
+			<tr>
+				<td># Dedicated Headcount for Private Cloud Admin. & Maint.</td>
+				<td><input type='text' id='6_1_headCount' step=".01" format='decimal'/>
+				</td>
+			</tr>
+		</table>
+		<h2>Projected State</h2>
+		<table>
+			<tr>Hybrid Cloud Opportunity Cost</tr>
+			<tr>
+				<td>From the total servers, break down the projected number of virtual and physical servers moving to the Public Cloud.</td>
+			</tr>
+			<tr>
+				<td>Of the Virtual Servers, how many are moving to the Public Cloud?</td>
+				<td><input type='text' id='6_2_virtualToCloud' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Of the Physical Servers, how many are moving to the Public Cloud?</td>
+				<td><input type='text' id='6_2_physicalToCloud' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Other required annual expenses</td>
+				<td><input type='text' id='6_2_otherExpenses' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>Projected Deployment Time Acceleration to the Public Cloud w/ SciLo (months)</td>
+				<td><input type='text' id='6_2_deployTime' onkeypress='return isNumber(event)' format='wholeNumber'/>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>Public Cloud Monthly Subscription Service</tr>
+			<tr>
+				<td>3 ye. Quote for Hybrid IT Cloud Service</td>
+				<td><input type='text' id='6_2_3yrQuoteHybrid' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>1 yr. cost for Hybrid IT Cloud Service</td>
+				<td>
+					<div id='6_2_1yrQuoteHybrid'</div>
+				</td>
+			</tr>
+			<tr>
+				<td>Other ANNUAL Cost for Public Cloud Deployment (Setup Fee, etc.)</td>
+				<td><input type='text' id='6_2_costCloudDeployment' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>Administration and Maintenance</tr>
+			<tr>
+				<td># Dedicated Headcount for Private  and Public Cloud Admin. & Maint.</td>
+				<td><input type='text' id='6_2_headCount' format='decimal'/>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='next'>NEXT</button>
+	</div>
+
+	<div id='step_7'>
+		<h1>STEP 7</h1>
+		<table>
+			<tr>ScienceLogic Monthly Subscription Service</tr>
+			<tr>
+				<td>3 yr. Quote for ScienceLogic Monthly Subscription Billing</td>
+				<td><input type='text' id='7_3yrQuote' onkeypress='return isNumber(event)' format='dollars'/>
+				</td>
+			</tr>
+			<tr>
+				<td>1 yr. cost for ScienceLogic</td>
+				<td>
+					<div type='text' id='7_1yrQuote'></div>
+				</td>
+			</tr>
+		</table>
+		<button class='back'>BACK</button>
+		<button class='review'>Continue</button>
+	</div>
+</body>
+</html>
