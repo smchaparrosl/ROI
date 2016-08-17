@@ -1,6 +1,6 @@
 var maxSteps = 7;
 var currentStep = 0;
-var customSteps = {};
+var customSteps = [0,1,2];
 var formFields = [];
 var foundErrors = false;
 var formatChecks = {
@@ -64,23 +64,39 @@ var formObject = {};
 
 //display
 function renderForm() {
-	$('#step_' + currentStep).show('slow').siblings().hide('slow');
+	$('#step_' + customSteps[currentStep]).show('slow').siblings().hide('slow');
 }
 
 function renderReview() {
-	$('#step_' + currentStep).show('slow').siblings().show('slow');
-	$('button:not(.resultsPage)').hide();
-	$('.submit').show();
+	var stepsToReview = [];
+	for (var i = 1; i <= maxSteps; i++) {
+		stepsToReview.push($('#step_' + customSteps[i])[0]);
+	}
+	$('button').hide();
+	$('#reviewTitle, .submit').show();
+	$(stepsToReview).show('slow');
+}
+
+function customizeFlow() {
+	if (formObject['0_improveIT'] === 'true') customSteps.push(3);
+	if (formObject['0_automateIT'] === 'true') customSteps.push(4);
+	if (formObject['0_toolsConsolidation'] === 'true') customSteps.push(5);
+	if (formObject['0_hybridIT'] === 'true') customSteps.push(6);
+	customSteps.push(7);
+	maxSteps = customSteps.length - 1;
+	for (var i = 0; i <= maxSteps; i++) {
+		$('#step_' + customSteps[i] + ' > .stepTitle').html('STEP ' + i);
+	}
 }
 
 //button handlers
 function handleNext() {
-	var currentFields = $('[id^="' + currentStep + '_"]');
+	var currentFields = $('[id^="' + customSteps[currentStep] + '_"]');
 	validate(currentFields);
-	if (!foundErrors) validateStep(currentStep);
+	if (!foundErrors) validateStep(customSteps[currentStep]);
 	if ((currentStep < maxSteps) && !foundErrors) {
-		currentStep += 1;
 		if (currentStep === 0) customizeFlow();
+		currentStep += 1;
 		renderForm();
 	};
 }
