@@ -1,5 +1,6 @@
 var maxSteps = 7;
 var currentStep = 0;
+var customSteps = {};
 var formFields = [];
 var foundErrors = false;
 var formatChecks = {
@@ -66,13 +67,20 @@ function renderForm() {
 	$('#step_' + currentStep).show('slow').siblings().hide('slow');
 }
 
+function renderReview() {
+	$('#step_' + currentStep).show('slow').siblings().show('slow');
+	$('button:not(.resultsPage)').hide();
+	$('.submit').show();
+}
+
 //button handlers
 function handleNext() {
 	var currentFields = $('[id^="' + currentStep + '_"]');
 	validate(currentFields);
-	if (!foundErrors) validateStep();
+	if (!foundErrors) validateStep(currentStep);
 	if ((currentStep < maxSteps) && !foundErrors) {
 		currentStep += 1;
+		if (currentStep === 0) customizeFlow();
 		renderForm();
 	};
 }
@@ -82,6 +90,25 @@ function handleBack() {
 		currentStep -= 1;
 		renderForm();
 	};
+}
+
+function handleUpdate() {
+	var updateStep = $(this).parent().attr('id');
+	updateStep = updateStep.substr(updateStep.indexOf('_') + 1);
+	var updateFields = $('[id^="' + updateStep + '_"]');
+	validate(updateFields);
+	if (!foundErrors) validateStep(updateStep);
+	if (!foundErrors) {
+		$(this).hide('slow');
+		$('.submit').show('slow');
+	}
+}
+
+function handleReviewChange() {
+	var changeStep = $(this).attr('id');
+	changeStep = changeStep.substr(0, changeStep.indexOf('_'));
+	$('#step_' + changeStep + ' > .update').show('slow');
+	$('.submit').hide('slow');
 }
 
 function addLicense() {
@@ -118,8 +145,8 @@ function validate(fields) {
 }
 
 //step specific validation
-function validateStep() {
-	if (currentStep == 6) {
+function validateStep(step) {
+	if (step == 6) {
 		var totalServers = parseInt($('#6_1_totalServers').val());
 		var virtualServers = parseInt($('#6_1_virtualServers').val());
 		var physicalServers = parseInt($('#6_1_physicalServers').val());
@@ -151,7 +178,6 @@ function validateStep() {
 }
 
 //strip down form values if needed for storing into formObject
-
 function getFieldValue(field) {
 	return $(field).val() || 
 			$(field).html() || 
@@ -166,6 +192,7 @@ function stripFieldValue(field, value) {
 }
 
 //allow only numbers to be typed in
+//From stackoverflow***
 function isNumber(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -199,14 +226,18 @@ function formatDecimal(value) {
 
 //setup
 $(document).ready(function() {
+	$('.resultsPage').hide();
 
 	//next and back button press
  	$('.next').on('click', handleNext);
 	$('.back').on('click', handleBack);
+	$('.update').on('click', handleUpdate);
+
 	$('#addLicense').on('click', addLicense);
 
 	$('.review').on('click', function(){
-		$('#step_' + currentStep).show('slow').siblings().show('slow');
+		$('input:text, select').on('change keyup paste', handleReviewChange);
+		renderReview();
 	});
 
 	$('input[format="dollars"]').on('input', function() {
