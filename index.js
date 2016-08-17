@@ -1,6 +1,7 @@
 var maxSteps = 7;
 var currentStep = 0;
 var customSteps = [0,1,2];
+var currentStage = '';
 var formFields = [];
 var foundErrors = false;
 var formatChecks = {
@@ -64,17 +65,30 @@ var formObject = {};
 
 //display
 function renderForm() {
+	currentStage = 'form';
 	$('#step_' + customSteps[currentStep]).show('slow').siblings().hide('slow');
 }
 
 function renderReview() {
+	currentStage = (currentStage === 'form') ? 'review' : 'resultsReview';
 	var stepsToReview = [];
 	for (var i = 1; i <= maxSteps; i++) {
 		stepsToReview.push($('#step_' + customSteps[i])[0]);
 	}
 	$('button').hide();
+	$('#form').show().siblings().hide();
 	$('#reviewTitle, .submit').show();
 	$(stepsToReview).show('slow');
+}
+
+function renderResults() {
+	currentStage = 'results';
+	var name = formObject['0_name'];
+	var firstName = name.substr(0, name.indexOf(' '));
+	$('#resultsHeader').html('Here are you results, ' + firstName)
+	$('#form').hide();
+	$('#infoPrompt').hide();
+	$('#results, #results > button').show();
 }
 
 function customizeFlow() {
@@ -125,6 +139,35 @@ function handleReviewChange() {
 	changeStep = changeStep.substr(0, changeStep.indexOf('_'));
 	$('#step_' + changeStep + ' > .update').show('slow');
 	$('.submit').hide('slow');
+}
+
+function handleSubmitPrompt() {
+	if ($(this).attr('id') === 'promptFullReport') {
+		validate($('.promptWindow > input'));
+	} else {
+		foundErrors = false;
+		$('.promptWindow > input').removeClass('invalid').next("span").remove();
+	}
+	if (!foundErrors) {
+		if (formObject['email']) buildFullReport();
+		else renderResults();
+	}
+}
+
+function handleResultsOption() {
+	if ($(this).attr('id') === 'resultsReview') {
+		renderReview();
+	} else if ($(this).attr('id') === 'executiveSummary') {
+		buildExecutiveSummary();
+	} else if ($(this).attr('id') === 'fullReport') {
+		if (formObject['email']) buildFullReport();
+		else {
+			$('.promptCopy').html('It seems we don\'t  have the credentials needed to build and send your full report.');
+			$('#promptDefaultResults').html('Back to Results');
+			$('#infoPrompt').show();
+			$('.submitPrompt').show();
+		}
+	}
 }
 
 function addLicense() {
@@ -240,9 +283,23 @@ function formatDecimal(value) {
 	return (number/100).toString();
 }
 
+//TO DO
+function buildExecutiveSummary() {
+	$('#resultsAlert').append('Executive Report Sent<br>');
+	renderResults();
+}
+
+function buildFullReport() {
+	$('#resultsAlert').append('Full Report Sent<br>');
+	renderResults();
+}
+
+
 //setup
 $(document).ready(function() {
-	$('.resultsPage').hide();
+	$('.reviewPage').hide();
+	$('#infoPrompt').hide();
+	$('#results').hide();
 
 	//next and back button press
  	$('.next').on('click', handleNext);
@@ -250,11 +307,6 @@ $(document).ready(function() {
 	$('.update').on('click', handleUpdate);
 
 	$('#addLicense').on('click', addLicense);
-
-	$('.review').on('click', function(){
-		$('input:text, select').on('change keyup paste', handleReviewChange);
-		renderReview();
-	});
 
 	$('input[format="dollars"]').on('input', function() {
 	    var enteredValue = $(this).val().replace(/\D/g,'');
@@ -294,6 +346,25 @@ $(document).ready(function() {
 		var projectedField = $(this).attr('id').replace('1', '2');
 		$('#' + projectedField).html($(this).val())
 	});
+
+	$('.review').on('click', function(){
+		$('input:text, select').on('change keyup paste', handleReviewChange);
+		renderReview();
+	});
+
+	$('.submit').on('click', function(){
+		if (currentStage === 'review') {
+			$('.promptCopy').html('You have ability to view a limited executive summary. By submitting your email and phone number, you will get the full analysis of your company\'s savings sent to you in as a PDF presentation.');
+			$('#infoPrompt').show();
+			$('.submitPrompt').show();
+		} else if (currentStage === 'resultsReview') {
+			renderResults();
+		}
+	});
+
+	$('.submitPrompt').on('click', handleSubmitPrompt);
+
+	$('.resultsOption').on('click', handleResultsOption);
 	
 	renderForm();
 });
