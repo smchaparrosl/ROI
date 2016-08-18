@@ -1,0 +1,222 @@
+#form button#addLicense {
+  margin: 0 0 45px;
+}
+
+body {
+  background-image: url(../assets/spiral-gradient-background.jpg);
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #666;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#form button, #infoPrompt button {
+  display: inline-block;
+  margin: 30px 15px 15px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 0;
+  border: 0;
+}
+
+.next {
+  background: #3298d4;
+}
+
+.back {
+  background: #999999;
+}
+
+.errorMessage {
+  color: red;
+  vertical-align: top;
+}
+
+#form * {
+  display: table;
+}
+
+#form #reviewTitleCopy  {
+  display: inline;
+}
+
+.formStep, .promptWindow {
+  background-color: #FFF;
+  margin: 20px auto;
+  padding: 40px 5%;
+  text-align: left;
+  border-radius: 10px;
+  max-width: 406px;
+}
+
+#header {
+  padding: 20px;
+  background-color: rgba(0,0,0,.65);
+  margin: 0;
+}
+
+h1 {
+  margin: 0 0 20px;
+}
+
+
+input[type=checkbox].checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+input[type=checkbox].checkbox + label.checkboxLabel {
+  padding-left:27px;
+  height:18px; 
+  display:inline-block;
+  line-height:18px;
+  background-repeat:no-repeat;
+  background-position: 0 0;
+  font-size:18px;
+  vertical-align:middle;
+  cursor:pointer;
+
+}
+
+input[type=checkbox].checkbox:checked + label.checkboxLabel {
+  background-position: 0 -18px;
+}
+
+input[type='text'] {
+  padding: 8px;
+  font-size: 18px;
+  color: #666;
+  font-family: 'Open Sans', sans-serif;
+  margin: 10px 0;
+  width: 350px;
+}
+
+.invalid {
+  border: 1px solid red;
+}
+
+label.checkboxLabel {
+  background-image: url(../assets/checkbox.png);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.label, .checkboxLabel {
+  margin: 10px 0;
+}
+
+#lastStepContinue {
+  background-color: #52b749;
+}
+
+#logo {
+  width: 200px;
+  margin: 0 50px;
+  left: 0;
+}
+
+#reviewTitle {
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+}
+
+#resultsHeader {
+  color: white;
+  margin: 50px;
+  font-size: 62px;
+}
+
+.resultsCopy {
+  color: white;
+  margin: 50px;
+  font-size: 36px;
+}
+
+#resultsAlert {
+  font-size: 17px;
+  margin: 20px;
+}
+
+#results button {
+  display: inline-block;
+  margin: 30px 15px 15px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 0;
+  border: 0;
+  background-color: #666;
+}
+
+#infoPrompt {
+  position:fixed;
+  padding:0;
+  margin:0;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background:rgba(0,0,0,0.5);
+}
+
+.promptCopy {
+  margin: 0 0 20px;
+}
+
+.sectionBreak {
+  height: 20px;
+}
+
+select {
+  -webkit-appearance: none; /* remove the strong OSX influence from Webkit */
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border-color: #CCC;
+  background: transparent;
+  padding: 9px;
+  font-size: 18px;
+  color: #666;
+  font-family: 'Open Sans', sans-serif;
+  margin: 10px 0;
+  width: 370px;
+  font: inherit;
+  outline: none; /* remove focus ring from Webkit */
+}
+
+.stepButtons, .submitForm, #results{
+  width: 100%;
+  text-align: center;
+}
+
+#form button#submitFormButton, #promptFullReport {
+  background-color: #52b749;
+  margin: 20px 0 40px;
+}
+
+#7_1yrQuote {
+  color: #52b749;
+  font-size: 24px;
+}

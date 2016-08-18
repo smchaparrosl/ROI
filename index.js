@@ -66,7 +66,14 @@ var formObject = {};
 //display
 function renderForm() {
 	currentStage = 'form';
-	$('#step_' + customSteps[currentStep]).show('slow').siblings().hide('slow');
+	var formDivCount = $('#form > div').length;
+	var hideCount = 0;
+	$('#form > div').fadeOut('slow', function() {
+		hideCount++;
+		if (hideCount == formDivCount) {
+			$('#step_' + customSteps[currentStep]).fadeIn('slow');
+		};
+	});
 }
 
 function renderReview() {
@@ -76,8 +83,8 @@ function renderReview() {
 		stepsToReview.push($('#step_' + customSteps[i])[0]);
 	}
 	$('button').hide();
-	$('#form').show().siblings().hide();
-	$('#reviewTitle, .submit').show();
+	$('#form').show().siblings(':not(.constant)').hide();
+	$('#reviewTitle, .submitForm, .submit').show();
 	$(stepsToReview).show('slow');
 }
 
@@ -85,10 +92,10 @@ function renderResults() {
 	currentStage = 'results';
 	var name = formObject['0_name'];
 	var firstName = name.substr(0, name.indexOf(' '));
-	$('#resultsHeader').html('Here are you results, ' + firstName)
+	$('#resultsHeader').html('Hello, ' + firstName);
 	$('#form').hide();
 	$('#infoPrompt').hide();
-	$('#results, #results > button').show();
+	$('#results, #results button').show();
 }
 
 function customizeFlow() {
@@ -99,7 +106,7 @@ function customizeFlow() {
 	customSteps.push(7);
 	maxSteps = customSteps.length - 1;
 	for (var i = 0; i <= maxSteps; i++) {
-		$('#step_' + customSteps[i] + ' > .stepTitle').html('STEP ' + i);
+		$('#step_' + customSteps[i] + ' .stepTitle').html('STEP ' + i);
 	}
 }
 
@@ -123,7 +130,7 @@ function handleBack() {
 }
 
 function handleUpdate() {
-	var updateStep = $(this).parent().attr('id');
+	var updateStep = $(this).parent().parent().attr('id');
 	updateStep = updateStep.substr(updateStep.indexOf('_') + 1);
 	var updateFields = $('[id^="' + updateStep + '_"]');
 	validate(updateFields);
@@ -137,19 +144,20 @@ function handleUpdate() {
 function handleReviewChange() {
 	var changeStep = $(this).attr('id');
 	changeStep = changeStep.substr(0, changeStep.indexOf('_'));
-	$('#step_' + changeStep + ' > .update').show('slow');
+	$('#step_' + changeStep + ' .update').show('slow');
 	$('.submit').hide('slow');
 }
 
 function handleSubmitPrompt() {
 	if ($(this).attr('id') === 'promptFullReport') {
-		validate($('.promptWindow > input'));
+		validate($('.promptWindow input'));
 	} else {
 		foundErrors = false;
-		$('.promptWindow > input').removeClass('invalid').next("span").remove();
+		$('.promptWindow input').removeClass('invalid').next("span").remove();
 	}
 	if (!foundErrors) {
 		if (formObject['email']) buildFullReport();
+		else if (currentStage === 'review') buildExecutiveSummary();
 		else renderResults();
 	}
 }
@@ -247,7 +255,7 @@ function getFieldValue(field) {
 //remove anything except number and decimals
 function stripFieldValue(field, value) {
 	value = formatChecks[$(field).attr('format')].strip ? value.replace(/[^0-9.]/g, '') : value ;
-	return value;
+	return $.trim(value);
 }
 
 //allow only numbers to be typed in
@@ -299,6 +307,8 @@ function buildFullReport() {
 $(document).ready(function() {
 	$('.reviewPage').hide();
 	$('#infoPrompt').hide();
+	$('#results').hide();
+	$('#form > div').hide();
 	$('#results').hide();
 
 	//next and back button press
@@ -354,7 +364,7 @@ $(document).ready(function() {
 
 	$('.submit').on('click', function(){
 		if (currentStage === 'review') {
-			$('.promptCopy').html('You have ability to view a limited executive summary. By submitting your email and phone number, you will get the full analysis of your company\'s savings sent to you in as a PDF presentation.');
+			$('.promptCopy').html('You have ability to view a limited executive summary. By submitting your email and phone number, you will get the full analysis of your company\'s savings sent to you in as a PDF presentation.<br>');
 			$('#infoPrompt').show();
 			$('.submitPrompt').show();
 		} else if (currentStage === 'resultsReview') {
