@@ -13,7 +13,7 @@ body {
   background-size: cover;
 }
 
-#form button, #infoPrompt button {
+#form .noTable button, #form .table button, #form button, #infoPrompt button {
   display: inline-block;
   margin: 30px 15px 15px;
   font-family: 'Raleway', sans-serif;
@@ -38,7 +38,7 @@ body {
   vertical-align: top;
 }
 
-#form * {
+#form .noTable * {
   display: table;
 }
 
@@ -52,6 +52,9 @@ body {
   padding: 40px 5%;
   text-align: left;
   border-radius: 10px;
+}
+
+.formStep.noTable, .promptWindow {
   max-width: 406px;
 }
 
