@@ -1,6 +1,6 @@
 var maxSteps = 7;
 var currentStep = 0;
-var customSteps = [0,1,2];
+var customSteps = [0, 1, 2];
 var currentStage = '';
 var formFields = [];
 var foundErrors = false;
@@ -43,7 +43,7 @@ var formatChecks = {
 			var emailPattern = /^[a-zA-Z0-9._-]+@(?!(?:yahoo|hotmail|gmail)\.com$)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;  
    			return emailPattern.test(value);
 		},
-		error: "<span class='errorMessage'>Please enter a valid email address. Yahoo,  hotmail, and gmail are not valid domains.</span>"
+		error: "<span class='errorMessage'>Please enter a valid email address. Yahoo,  hotmail, and gmail are not valid domains.</span><br>"
 	},
 	phone: {
 		validation: function(value) {
@@ -71,6 +71,7 @@ function renderForm() {
 	$('#form > div').fadeOut('slow', function() {
 		hideCount++;
 		if (hideCount == formDivCount) {
+			//$('html, body').animate({ scrollTop: 0 }, 'slow');
 			$('#step_' + customSteps[currentStep]).fadeIn('slow');
 		};
 	});
@@ -99,6 +100,7 @@ function renderResults() {
 }
 
 function customizeFlow() {
+	customSteps = [0, 1, 2];
 	if (formObject['0_improveIT'] === 'true') customSteps.push(3);
 	if (formObject['0_automateIT'] === 'true') customSteps.push(4);
 	if (formObject['0_toolsConsolidation'] === 'true') customSteps.push(5);

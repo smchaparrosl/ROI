@@ -108,6 +108,10 @@ input[type='text'] {
   width: 350px;
 }
 
+.table input[type='text'] {
+  width:;
+}
+
 .invalid {
   border: 1px solid red;
 }
@@ -219,7 +223,7 @@ select {
   margin: 20px 0 40px;
 }
 
-#7_1yrQuote {
+.greenText {
   color: #52b749;
   font-size: 24px;
 }
